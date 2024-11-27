@@ -15,7 +15,6 @@
                 <?php else : ?>
                     <span class="badge bg-danger">Hết hàng</span>
                 <?php endif ?>
-                <!-- Thay đổi theo trạng thái -->
             </p>
             <h3 class="text-danger">Giá: <?= number_format($product['price']) ?> VNĐ</h3>
             <p><strong>Số lượng còn:</strong> <?= $product['quantity'] ?></p>
@@ -31,16 +30,19 @@
             </div>
         </div>
     </div>
-    <!-- Thêm phần mô tả chi tiết nếu cần -->
+
+    <!-- Mô tả chi tiết sản phẩm -->
     <div class="row mt-5">
         <div class="col">
             <h2>Mô tả chi tiết</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit
-                arcu sed erat molestie vehicula. Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.
+                <?= $product['detailed_description'] ?? 'Mô tả chi tiết chưa có.' ?>
             </p>
         </div>
     </div>
+
+    
+
 </div>
 
 <?php include_once ROOT_DIR . "views/client/footer.php" ?>

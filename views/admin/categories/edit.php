@@ -7,16 +7,19 @@
     <?php endif ?>
     <form class="mt-3" action="<?= ADMIN_URL . '?ctl=updatedm' ?>" method="post">
         <div class="mb-3">
-            <label for="">Tên sản danh mục</label>
-            <input type="text" name="cate_name" value="<?= $category['cate_name'] ?>" class="form-control">
+            <label for="">Tên danh mục</label>
+            <input type="text" name="cate_name" value="<?= htmlspecialchars($category['cate_name']) ?>" class="form-control">
         </div>
 
         <div class="mb-3">
             <label for="">Loại sản phẩm</label> <br>
-            <input type="radio" name="type" value="1" <?= $category['type'] ? 'checked' : '' ?> id=""> Thú cưng
-            <input type="radio" name="type" value="0" <?= $category['type'] == 0 ? 'checked' : '' ?>> Sản phẩm cho thú
+            <input type="radio" name="type" value="1" <?= $category['type'] == 1 ? 'checked' : '' ?>> Bánh ngọt <br>
+            <input type="radio" name="type" value="2" <?= $category['type'] == 2 ? 'checked' : '' ?>> Kem <br>
+            <input type="radio" name="type" value="3" <?= $category['type'] == 3 ? 'checked' : '' ?>> Snack
         </div>
-        <input type="hidden" name="id" value="<?= $category['id'] ?>">
+
+        <input type="hidden" name="id" value="<?= htmlspecialchars($category['id']) ?>">
+
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Cập nhật</button>
         </div>

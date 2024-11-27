@@ -1,10 +1,4 @@
 <?php
-
-/**
- * Lớp Category: quản lý bảng categories
- * thuộc tính type: 0 - sản phẩm, 1: thú cưng
- * thuộc tính soft_delete: 0 - Không xóa, 1 - Đã xóa
- */
 class Category extends BaseModel
 {
     //Danh sách categories
@@ -26,6 +20,13 @@ class Category extends BaseModel
         $stmt = $this->conn->prepare($sql);
         $stmt->execute($data);
     }
+    public function findByEmail() {
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['email' => "email"]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
     //Cập nhật
     public function update($id, $data)
     {

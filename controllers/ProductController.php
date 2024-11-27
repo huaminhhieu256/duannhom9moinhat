@@ -1,3 +1,4 @@
+
 <?php
 
 class ProductController
@@ -7,7 +8,7 @@ class ProductController
     {
         $id = $_GET['id']; //id danh mục
         //Lấy sản phẩm theo danh mục
-        $products = (new Product)->listProductInCategory($id);
+        $products = (new Product)->listByCategory($id);
 
         $title = '';
         if ($products) {
@@ -37,10 +38,9 @@ class ProductController
         //Lưu URI vào session
         $_SESSION['URI'] = $_SERVER['REQUEST_URI'];
 
-        $totalQuantity = (new CartController)->totalQuantityCart();
         return view(
             'client.products.detail',
-            compact('product', 'title', 'categories', 'totalQuantity')
+            compact('product', 'title', 'categories')
         );
     }
 }

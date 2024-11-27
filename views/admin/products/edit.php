@@ -40,6 +40,11 @@
             <label for="">Mô tả sản phẩm</label>
             <textarea name="description" rows="6" class="form-control"><?= $product['description'] ?></textarea>
         </div>
+        <!-- Mô tả chi tiết sản phẩm -->
+        <div class="mb-3">
+            <label for="">Mô tả chi tiết sản phẩm</label>
+            <textarea name="detailed_description" rows="6" class="form-control"></textarea>
+        </div>
         <!--Dữ liệu id-->
         <input type="hidden" name="id" value="<?= $product['id'] ?>">
         <div class="mb-3">

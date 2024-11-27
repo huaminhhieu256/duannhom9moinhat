@@ -34,10 +34,19 @@
             <input type="radio" name="status" value="1" checked id=""> Đang kinh doanh
             <input type="radio" name="status" value="0" id=""> Ngừng kinh doanh
         </div>
+        
+        <!-- Mô tả sản phẩm -->
         <div class="mb-3">
             <label for="">Mô tả sản phẩm</label>
             <textarea name="description" rows="6" class="form-control"></textarea>
         </div>
+        
+        <!-- Mô tả chi tiết sản phẩm -->
+        <div class="mb-3">
+            <label for="">Mô tả chi tiết sản phẩm</label>
+            <textarea name="detailed_description" rows="6" class="form-control"></textarea>
+        </div>
+
         <div class="mb-3">
             <button type="submit" class="btn btn-primary">Thêm mới</button>
         </div>

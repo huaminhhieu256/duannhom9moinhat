@@ -59,30 +59,34 @@ class AdminProductController
     }
 
     //Cập nhật sản phẩm
+    
     public function update()
     {
         $data = $_POST;
-
-        //Lấy sản phẩm hiện tại
+    
+        // Lấy sản phẩm hiện tại
         $product = new Product;
         $item = $product->find($data['id']);
-        $image = $item['image']; //Khi người dùng không upload ảnh
-        //Nếu người dùng upload hình ảnh
+        $image = $item['image']; // Sử dụng ảnh cũ nếu không upload ảnh mới
+    
+        // Xử lý tệp ảnh
         $file = $_FILES['image'];
         if ($file['size'] > 0) {
-            //lấy ảnh
             $image = "images/" . $file['name'];
-            //Upload ảnh
             move_uploaded_file($file['tmp_name'], ROOT_DIR . $image);
         }
-        //đưa ảnh vào $data
+    
+        // Đưa ảnh vào mảng $data
         $data['image'] = $image;
-
+    
+        // Cập nhật sản phẩm
         $product->update($data['id'], $data);
-
+    
+        // Chuyển hướng sau khi cập nhật
         header("location: " . ADMIN_URL . "?ctl=editsp&id=" . $data['id']);
         die;
     }
+    
 
     //Xóa sản phẩm
     public function delete()

@@ -17,3 +17,9 @@ function dd($data)
     var_dump($data);
     echo "</pre>";
 }
+function session_flash($key)
+{
+    $message = $_SESSION[$key] ?? '';
+    unset($_SESSION[$key]);
+    return $message;
+}

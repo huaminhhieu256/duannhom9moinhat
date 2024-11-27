@@ -16,6 +16,7 @@
                 <th scope="col">Quantity</th>
                 <th scope="col">Status</th>
                 <th scope="col">Category</th>
+                <th scope="col">Mô tả chi tiết</th> <!-- Thêm cột Mô tả chi tiết -->
                 <th>
                     <a href="<?= ADMIN_URL . "?ctl=addsp" ?>" class="btn btn-primary">Create</a>
                 </th>
@@ -29,10 +30,14 @@
                     <td>
                         <img src="<?= ROOT_URL . $pro['image'] ?>" width="60" alt="">
                     </td>
-                    <td><?= $pro['price'] ?></td>
+                    <td><?= number_format($pro['price']) ?> VNĐ</td>
                     <td><?= $pro['quantity'] ?></td>
                     <td><?= $pro['status'] ? 'Đang kinh doanh' : 'Ngừng kinh doanh' ?></td>
                     <td><?= $pro['cate_name'] ?></td>
+                    <td>
+    <p><?= substr(empty($pro['detailed_description']) ? '' : $pro['detailed_description'], 0, 50) ?>...</p>
+</td>
+
                     <td>
                         <a href="<?= ADMIN_URL . '?ctl=editsp&id=' . $pro['id'] ?>" class="btn btn-primary">Edit</a>
                         <a href="<?= ADMIN_URL . '?ctl=deletesp&id=' . $pro['id'] ?>" class="btn btn-danger" onclick="return confirm('Bạn có muốn xóa không?')">Xóa</a>

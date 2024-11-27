@@ -2,15 +2,15 @@
 <div>
     <form action="<?= ADMIN_URL . '?ctl=storedm' ?>" method="post" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="">Tên sản danh mục</label>
+            <label for="">Tên danh mục</label>
             <input type="text" name="cate_name" id="" class="form-control">
-
         </div>
 
         <div class="mb-3">
             <label for="">Loại sản phẩm</label> <br>
-            <input type="radio" name="type" value="1" checked id=""> Thú cưng
-            <input type="radio" name="type" value="0" id=""> Sản phẩm cho thú
+            <input type="radio" name="type" value="1" checked id=""> Bánh ngọt
+            <input type="radio" name="type" value="2" id=""> Kem
+            <input type="radio" name="type" value="3" id=""> Snack
         </div>
 
         <div class="mb-3">
