@@ -33,6 +33,9 @@
                             case 3:
                                 echo 'Snack';
                                 break;
+                                case 4:
+                                    echo 'Que cay Trung Quốc';
+                                    break;
                             default:
                                 echo 'Không xác định';
                                 break;

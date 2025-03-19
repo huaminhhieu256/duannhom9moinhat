@@ -11,6 +11,8 @@
             <input type="radio" name="type" value="1" checked id=""> Bánh ngọt
             <input type="radio" name="type" value="2" id=""> Kem
             <input type="radio" name="type" value="3" id=""> Snack
+            <input type="radio" name="type" value="4" id=""> Que cay Trung Quốc
+
         </div>
 
         <div class="mb-3">

@@ -63,9 +63,10 @@
                 <button type="submit" formaction="<?= ROOT_URL . '?ctl=update-cart' ?>" class="btn btn-warning">
                     <i class="bi bi-arrow-clockwise"></i> Cập nhật giỏ hàng
                 </button>
-                <button type="submit" class="btn btn-success">
-                    <i class="bi bi-credit-card"></i> Thanh toán
-                </button>
+                <a href="<?= ROOT_URL . '?ctl=view-checkout' ?>" class="btn btn-success">
+    <i class="bi bi-credit-card"></i> Thanh toán
+</a>
+
             </div>
         </div>
     </form>

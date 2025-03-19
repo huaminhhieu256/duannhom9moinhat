@@ -1,24 +1,24 @@
+
 <?php
 
 class AuthController
 {
-    // Đăng ký
+    //Đăng ký
     public function register()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST;
-
-            // Mã hóa mật khẩu
+            //Mã hóa mật khẩu
             $password = $_POST['password'];
             $password = password_hash($password, PASSWORD_DEFAULT);
 
-            // Đưa vào data
+            //đưa vào data
             $data['password'] = $password;
 
-            // Insert vào database
+            //Insert vào database
             (new User)->create($data);
 
-            // Thông báo
+            //Thông báo
             $_SESSION['message'] = 'Đăng ký thành công';
             header("Location: " . ROOT_URL . "?ctl=login");
             die;
@@ -27,88 +27,94 @@ class AuthController
         return view('client.users.register');
     }
 
-    // Đăng nhập
+    //Đăng nhập
     public function login()
     {
-        // Kiểm tra xem người dùng đã đăng nhập chưa
+        //Kiểm tra xem người dùng đăng nhập chưa
         if (isset($_SESSION['user'])) {
-            header("Location: " . ROOT_URL);
+            header("location: " . ROOT_URL);
             die;
         }
-    
         $error = null;
-        
-        // Kiểm tra nếu yêu cầu là POST (người dùng gửi thông tin đăng nhập)
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            // Lấy email và mật khẩu người dùng nhập vào
             $email = $_POST['email'];
             $password = $_POST['password'];
-    
-            // Tìm người dùng theo email
-            $user = (new User)->findByEmail($email);
-    
-            // Kiểm tra nếu người dùng tồn tại trong cơ sở dữ liệu
+
+            $user = (new User)->findUserOfEmail($email);
+
+            //Kiểm tra mật khẩu
             if ($user) {
-                // Kiểm tra mật khẩu với mật khẩu đã mã hóa trong cơ sở dữ liệu
                 if (password_verify($password, $user['password'])) {
-                    // Đăng nhập thành công, lưu thông tin người dùng vào session
+                    //đăng nhập thành công
                     $_SESSION['user'] = $user;
-    
-                    // Điều hướng dựa trên vai trò của người dùng
+                    //nếu role = admin, vào admin, ngược lại vào trang chủ
                     if ($user['role'] == 'admin') {
-                        // Nếu là admin, chuyển hướng đến trang quản trị
                         header("Location: " . ADMIN_URL);
                         die;
                     }
-    
-                    // Nếu không phải admin, chuyển hướng về trang chủ
                     header("Location: " . ROOT_URL);
                     die;
                 } else {
-                    // Mật khẩu không đúng
                     $error = "Email hoặc Mật khẩu không đúng";
                 }
             } else {
-                // Không tìm thấy người dùng với email đã nhập
                 $error = "Email hoặc Mật khẩu không đúng";
             }
         }
-    
-        // Lấy thông báo flash message nếu có
         $message = session_flash('message');
-    
-        // Trả về view đăng nhập với thông báo lỗi nếu có
         return view('client.users.login', compact('message', 'error'));
     }
-    
 
-    // Hiển thị danh sách người dùng
+    //Đăng xuất
+    public function logout()
+    {
+        unset($_SESSION['user']);
+        header('Location:' . ROOT_URL . '?ctl=login');
+        die;
+    }
+
     public function index()
     {
         $users = (new User)->all();
         return view('admin.users.list', compact('users'));
     }
 
-    // Cập nhật trạng thái kích hoạt người dùng
     public function updateActive()
     {
-        $data = $_POST;
+        $data = $_POST;  // Nhận dữ liệu từ form
 
-        // Đảo trạng thái active
-        $data['active'] = $data['active'] ? 0 : 1;
+        // Kiểm tra giá trị active và gán lại (0 hoặc 1)
+        $data['active'] = $data['active'] ? 1 : 0;  // Nếu active có giá trị, set là 1, nếu không là 0
 
-        // Cập nhật trạng thái active
+        // Gọi phương thức updateActive từ model User để cập nhật trạng thái hoạt động của người dùng
         (new User)->updateActive($data['id'], $data['active']);
+
+        // Chuyển hướng người dùng về trang danh sách người dùng
         return header('Location: ' . ADMIN_URL . '?ctl=listuser');
     }
-    public function logout()
-{
-    // Xóa thông tin người dùng khỏi session
-    unset($_SESSION['user']);
+    public function updateUser()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $role = $_POST['role'];
+            $phone = $_POST['phone'];
+            $active = $_POST['active'];
+            $address = $_POST['address'];
+
+            // Cập nhật quyền, số điện thoại, trạng thái và địa chỉ người dùng
+            (new User)->update($id, [
+                'role' => $role,
+                'phone' => $phone,
+                'active' => $active,
+                'address' => $address
+            ]);
+
+            // Quay lại trang danh sách người dùng
+            header('Location: ' . ADMIN_URL . '?ctl=listuser');
+            exit;
+        }
+    }
     
-    // Chuyển hướng về trang đăng nhập
-    header('Location: ' . ROOT_URL . '?ctl=login');
-    die; // Dừng thực thi mã sau khi chuyển hướng
-}
+
 
 }

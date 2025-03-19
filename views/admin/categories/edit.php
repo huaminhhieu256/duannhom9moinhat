@@ -16,6 +16,7 @@
             <input type="radio" name="type" value="1" <?= $category['type'] == 1 ? 'checked' : '' ?>> Bánh ngọt <br>
             <input type="radio" name="type" value="2" <?= $category['type'] == 2 ? 'checked' : '' ?>> Kem <br>
             <input type="radio" name="type" value="3" <?= $category['type'] == 3 ? 'checked' : '' ?>> Snack
+            <input type="radio" name="type" value="3" <?= $category['type'] == 3 ? 'checked' : '' ?>> Que cay Trung Quốc
         </div>
 
         <input type="hidden" name="id" value="<?= htmlspecialchars($category['id']) ?>">

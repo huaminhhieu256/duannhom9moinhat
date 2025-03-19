@@ -15,14 +15,38 @@ public function all()
     //@id mã danh mục
     public function listByCategory($categoryId)
     {
+        // Giả sử bạn đã có kết nối cơ sở dữ liệu trong $this->conn
         $sql = "SELECT * FROM products WHERE category_id = :category_id";
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':category_id', $categoryId, PDO::PARAM_INT);
         $stmt->execute();
+
+        // Trả về kết quả dưới dạng mảng
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getProductByCate($category_id = null)
+    {
+        $sql = "SELECT c.cate_name, p.name, p.image, p.price, p.description, p.id
+        FROM products as p 
+        JOIN categories as c ON p.category_id = c.id";
+        
+        // Nếu có category_id, thêm điều kiện WHERE
+        if ($category_id) {
+            $sql .= " WHERE p.category_id = :category_id";
+        }
+        
+        $stmt = $this->conn->prepare($sql);
+    
+        // Nếu có category_id, bind giá trị
+        if ($category_id) {
+            $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+        }
+        
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Lấy sản phẩm là thực phẩm (type=1), thay thế cho pets
+    // Lấy sản phẩm là thực phẩm (type=1),
     public function listFood()
     {
         $sql = "SELECT p.*, c.cate_name FROM products p JOIN categories c ON p.category_id=c.id WHERE type=1 ORDER BY p.id DESC";
@@ -42,13 +66,26 @@ public function all()
 
     // Thêm dữ liệu
     public function create($data)
-    {
-        $sql = "INSERT INTO products(name, image, price, quantity, description, status, category_id) 
-                VALUES(:name, :image, :price, :quantity, :description, :status, :category_id)";
-
+{
+    $sql = "INSERT INTO products(name, image, price, quantity, description, status, category_id) 
+            VALUES(:name, :image, :price, :quantity, :description, :status, :category_id)";
+    
+    try {
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute($data);
+        $stmt->execute([
+            ':name' => $data['name'],
+            ':image' => $data['image'],
+            ':price' => $data['price'],
+            ':quantity' => $data['quantity'],
+            ':description' => $data['description'],
+            ':status' => $data['status'],
+            ':category_id' => $data['category_id']
+        ]);
+    } catch (PDOException $e) {
+        die("Lỗi thêm sản phẩm: " . $e->getMessage());
     }
+}
+
 
     // Cập nhật
     public function update($id, $data)
@@ -98,4 +135,5 @@ public function all()
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
 }

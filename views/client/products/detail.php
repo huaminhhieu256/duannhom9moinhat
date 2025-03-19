@@ -41,8 +41,34 @@
         </div>
     </div>
 
-    
-
+    <div class="mt-5">
+        <hr>
+        <h3>Bình luận</h3>
+        <div class="comment-list mt-4">
+    <?php foreach ($comments as $comment): ?>
+        <div class="mb-3 p-3 rounded shadow-sm bg-light">
+            <p class="fw-bold mb-1"><?= htmlspecialchars($comment['fullname']) ?>
+                <small class="text-muted"><?= date('d-m-Y H:i:s', strtotime($comment['created_at'])) ?></small>
+            </p>
+            <p class="mb-0"><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
+        </div>
+    <?php endforeach ?>
+</div>
+        <!-- Form bình luận -->
+        <?php if (isset($_SESSION['user'])): ?>
+            <form action="" method="POST" class="mt-4">
+                <div class="form-floating mb-3">
+                    <textarea name="content" class="form-control" placeholder="Viết bình luận của bạn" id="commentContent" style="height: 100px" required></textarea>
+                    <label for="commentContent">Viết bình luận của bạn...</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Gửi</button>
+            </form>
+        <?php else: ?>
+            <div class="alert alert-warning mt-4">
+                Bạn cần <b><a href="<?= ROOT_URL . '?ctl=login' ?>">đăng nhập</a></b> để bình luận.
+            </div>
+        <?php endif ?>
+    </div>
 </div>
 
 <?php include_once ROOT_DIR . "views/client/footer.php" ?>

@@ -1,3 +1,3 @@
 <?php include_once ROOT_DIR . "views/admin/header.php" ?>
-<h1>trang DASHBOARD</h1>
+Trang admin
 <?php include_once ROOT_DIR . "views/admin/footer.php" ?>

@@ -12,7 +12,8 @@
                 <div class="product-box">
                     <img src="<?= $product['image'] ?>" alt="Product Image" class="product-img">
                     <div class="product-info">
-                        <a href="#">
+                    <a href="<?= ROOT_URL . '?ctl=detail&id=' . htmlspecialchars($product['id']) ?>">
+
                             <h5 class="product-name"><?= $product['name'] ?></h5>
                         </a>
                         <div>

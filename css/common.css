@@ -1,3 +1,6 @@
+.container {
+  margin: 0 auto;
+}
 .product-box {
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -7,16 +10,23 @@
   background-color: #fff;
   padding: 10px;
   box-sizing: border-box;
+  max-height: 500px;
 }
 
+.product-name {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
 .product-box:hover {
   transform: scale(1.05);
 }
 
 .product-img {
   width: 100%;
-  min-height: 300px;
-  /* object-fit: cover; */
+  height: 200px;
+  object-fit: cover;
 }
 
 .product-info {
@@ -78,4 +88,13 @@ h3 {
   font-size: 1.2rem;
   color: #eee;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.row .product-box{
+  max-height: 500px;
+}
+
+.row .col-md-3 {
+  display: flex;
+
 }

@@ -2,6 +2,16 @@
 //AdminProductController Điều sản phẩm
 class AdminProductController
 {
+    public function __construct()
+    {
+        $user = $_SESSION['user'] ?? [];
+        if (!$user || $user['role'] != 'admin') {
+            // Gọi header() trực tiếp mà không cần return
+            header("Location: " . ROOT_URL);
+            exit(); // Dừng việc thực thi sau khi redirect
+        }
+    }
+    
     //Hàm index để hiển thị ds sản phẩm
     public function index()
     {
